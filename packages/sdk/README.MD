@@ -2,7 +2,7 @@
 
 # Unblock SDK
 
-`@simaoptrocha/try-now-sdk` allows you to seamlessly integrate the Unblock widget into your web application.
+`@simaoptrocha/try-now-widget` allows you to seamlessly integrate the Unblock widget into your web application.
 
 ## 📌 Overview
 
@@ -10,18 +10,18 @@ The Unblock SDK provides a straightforward way to embed and interact with the Un
 
 ## 🚀 Installation
 
-You can find the package here - [https://www.npmjs.com/package/@simaoptrocha/try-now-sdk](https://www.npmjs.com/package/@simaoptrocha/try-now-sdk).
+You can find the package here - [https://www.npmjs.com/package/@simaoptrocha/try-now-widget](https://www.npmjs.com/package/@simaoptrocha/try-now-widget).
 
 ### Install via npm:
 
 ```sh
-npm install @simaoptrocha/try-now-sdk
+npm install @simaoptrocha/try-now-widget
 ```
 
 ### Install via Yarn:
 
 ```sh
-yarn add @simaoptrocha/try-now-sdk
+yarn add @simaoptrocha/try-now-widget
 ```
 
 
@@ -31,7 +31,7 @@ yarn add @simaoptrocha/try-now-sdk
 ### Importing the loader
 
 ```js
-import { loadCustomWidget } from '@simaoptrocha/try-now-sdk';
+import { loadCustomWidget } from '@simaoptrocha/try-now-widget';
 ```
 
 ### Creating an instance with your setup
