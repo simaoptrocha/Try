@@ -1,7 +1,7 @@
 (function (global) {
 
   class SimpleWidget {
-    baseUrl = "https://patient-humpback-endless.ngrok-free.app" 
+    baseUrl = "https://main.d1lhmcsifcqof1.amplifyapp.com" 
     constructor({ containerNodeSelector, walletAddress, chain, token, options }) {
   
       this.options = options;
