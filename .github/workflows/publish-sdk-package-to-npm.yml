@@ -1,0 +1,58 @@
+name: Publish SDK Package To Npm
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Git User Identity
+        run: |
+              EMAIL=$(git config --get user.email || echo "${{ github.actor }}@users.noreply.github.com")
+              USERNAME=$(git config --get user.name || echo "${{ github.actor }}")
+              git config --global user.email "$EMAIL"
+              git config --global user.name "$USERNAME"
+    
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          registry-url: "https://registry.npmjs.org/"  # Change registry URL to the public npm registry
+          scope: "@simaoptrocha"
+
+      - name: Install Dependencies
+        run: |
+          cd packages/sdk
+          npm install
+
+      - name: Build Package
+        run: |
+          cd packages/sdk
+          npm run build
+
+      - name: Setup npm authentication
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > packages/sdk/.npmrc  # Use the public npm token from secrets
+          echo "@simaoptrocha:registry=https://registry.npmjs.org/" >> packages/sdk/.npmrc
+
+      - name: Clean npm cache
+        run: npm cache clean --force
+
+      - name: Release & Publish Package
+        run: |
+          cd packages/sdk
+          npm run release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}  # Use the npm token for authentication
+
+      - name: Clean up .npmrc
+        run: rm -f packages/sdk/.npmrc

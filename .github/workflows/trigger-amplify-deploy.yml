@@ -1,0 +1,16 @@
+name: Trigger Amplify Webhook
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Trigger Amplify Deployment via Webhook
+        run: |
+          curl -X POST ${{ secrets.DEPLOYMENT_WEBHOOK_URL }}

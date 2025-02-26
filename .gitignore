@@ -1,0 +1,6 @@
+node_modules
+packages/trynow/node_modules
+packages/sdk/node_modules
+packages/demo/node_modules
+.env
+.env.*

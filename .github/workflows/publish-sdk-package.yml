@@ -1,0 +1,58 @@
+name: Publish SDK Package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Git User Identity
+        run: |
+              EMAIL=$(git config --get user.email || echo "${{ github.actor }}@users.noreply.github.com")
+              USERNAME=$(git config --get user.name || echo "${{ github.actor }}")
+              git config --global user.email "$EMAIL"
+              git config --global user.name "$USERNAME"
+    
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          registry-url: "https://npm.pkg.github.com/"
+          scope: "@simaoptrocha"
+
+      - name: Install Dependencies
+        run: |
+          cd packages/sdk
+          npm install
+
+      - name: Build Package
+        run: |
+          cd packages/sdk
+          npm run build
+
+      - name: Setup npm authentication
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.TRY_NOW_PACKAGE_TOKEN }}" > packages/sdk/.npmrc
+          echo "@simaoptrocha:registry=https://npm.pkg.github.com/" >> packages/sdk/.npmrc
+
+      - name: Clean npm cache
+        run: npm cache clean --force
+
+      - name: Release & Publish Package
+        run: |
+          cd packages/sdk
+          npm run release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.TRY_NOW_PACKAGE_TOKEN }}
+
+      - name: Clean up .npmrc
+        run: rm -f packages/sdk/.npmrc
