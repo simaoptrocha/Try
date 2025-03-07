@@ -1,7 +1,7 @@
 (function (global) {
 
   class SimpleWidget {
-    baseUrl = "https://main.d1lhmcsifcqof1.amplifyapp.com" 
+    baseUrl = "https://main.dq2rjlvczplxw.amplifyapp.com" 
     constructor({ containerNodeSelector, walletAddress, chain, token, options }) {
   
       this.options = options;
