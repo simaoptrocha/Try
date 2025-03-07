@@ -38,7 +38,7 @@ function sendHandshakeMessage(widgetInstance: any, retries = 30, delay = 1000) {
 
 async function loadCustomWidget() {
   return new Promise((resolve, reject) => {
-    const scriptSrc = "https://main.d1lhmcsifcqof1.amplifyapp.com/index.js"
+    const scriptSrc = "https://main.dq2rjlvczplxw.amplifyapp.com//index.js"
     scriptLoadingStatus.isLoading = true;
       const script = document.createElement('script');
       script.async = true;
